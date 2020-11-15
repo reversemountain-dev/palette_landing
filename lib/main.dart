@@ -1,6 +1,14 @@
+
+
+import 'package:flutter/gestures.dart';
+
+import 'page1.dart';
+import 'page2.dart';
+import 'page3.dart';
+import 'page4.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+main() {
   runApp(MyApp());
 }
 
@@ -9,7 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Palette Service',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,7 +31,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Palette Landing Page'),
     );
   }
 }
@@ -46,16 +55,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  // ignore: missing_return
+  Future<void> incrementCounter() {
+    //FirebaseFirestore.instance.collection('email').add({'email': 'email$_counter'});
+  }
+  PageController _pageController = new PageController();
+
+  final TextEditingController _textController = new TextEditingController();
+  _moveUp() async {
+    await Future.delayed(Duration(microseconds: 10));
+    _pageController
+        .previousPage(
+            duration: Duration(milliseconds: 500), curve: Curves.linear)
+        .then((value) {
+      print("p");
+    });
+  }
+
+  _moveDown() async {
+    await Future.delayed(Duration(microseconds: 10));
+    _pageController
+        .nextPage(duration: Duration(milliseconds: 500), curve: Curves.linear)
+        .then((value) {
+      print("n");
     });
   }
 
@@ -68,46 +91,38 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+      body: Listener(
+        onPointerSignal: (PointerSignalEvent event) {
+          if (event is PointerScrollEvent) {
+            if (event.scrollDelta.dy > 0) {
+              _moveDown();
+            } else if (event.scrollDelta.dy < 0) {
+              _moveUp();
+            }
+          }
+
+        },
+        child: PageView(
+
+          pageSnapping: true,
+          scrollDirection: Axis.vertical,
+          controller: _pageController,
+          children: [
+            Page1(),
+            Page2(),
+            Page3(),
+            Page4(),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void _handleSubmitted(String text) {
+    /*FirebaseFirestore.instance.collection('email').add({
+          'email': text,
+          'datetime': DateTime.now()
+      });*/
+    _textController.clear();
   }
 }
