@@ -23,13 +23,14 @@ class _Page1State extends State<Page1> {
     // TODO: implement initState
     super.initState();
     _controller = VideoPlayerController.network(
-        "https://firebasestorage.googleapis.com/v0/b/palette-landing.appspot.com/o/Palette%20UI%20%EB%8F%99%EC%98%81%EC%83%81%20%EC%88%98%EC%A0%95%EB%B3%B8.mp4?alt=media&token=4f4acedd-cfc5-4b84-af63-3aa63e27e19f")
+        "https://firebasestorage.googleapis.com/v0/b/palette-landing.appspot.com/o/Palette%20%EB%8F%99%EC%98%81%EC%83%81.mp4?alt=media&token=7b09899c-0cb7-4349-84ec-25b342444957")
       ..initialize().then((_) {
         setState(() {
           _controller.play();
         });
       });
-    image = Image.network("https://firebasestorage.googleapis.com/v0/b/palette-landing.appspot.com/o/Palette-UI.gif?alt=media&token=73c59888-abf4-4f18-8047-1a9fab13c5b6");
+    image = Image.network(
+        "https://firebasestorage.googleapis.com/v0/b/palette-landing.appspot.com/o/Palette-%EB%8F%99%EC%98%81%EC%83%81.gif?alt=media&token=7d156be1-b901-4076-8af4-8c0869b4fc09");
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // mutes the video
       _controller.setVolume(0);
@@ -236,36 +237,49 @@ class _Page1State extends State<Page1> {
             }
           }
 
+          var width = MediaQuery.of(context).size.width;
+          var height = MediaQuery.of(context).size.height;
           return BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: AlertDialog(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                  borderRadius: BorderRadius.all(Radius.circular(0.0))),
               content: Container(
-                width: 350.0,
-                height: 500.0,
+                color: Color(0xFFFCFCFF),
+                width: width / 2,
+                height: height,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 15),
-                      Text(
-                        "Palette 신청하기",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                      Image.network("/assets/assets/images/logo.png",
+                          width: width / 6),
+                      SizedBox(height: 30),
+                      Image.network("/assets/assets/desc/apply.svg",
+                          width: width / 6),
+                      SizedBox(height: 60),
+                      Container(
+                        width: 400,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "이름을 입력하세요",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 12),
+                        ),
                       ),
-                      SizedBox(height: 35),
+                      SizedBox(height: 2),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(0),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(color: Colors.grey, spreadRadius: 1),
                           ],
                         ),
                         height: 30,
-                        width: 220,
+                        width: 400,
                         child: Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -273,13 +287,13 @@ class _Page1State extends State<Page1> {
                               Container(
                                 alignment: Alignment.center,
                                 height: 20,
-                                width: 170,
+                                width: 350,
                                 child: TextField(
                                   autofocus: false,
                                   onChanged: _validate,
                                   controller: _nameController,
                                   decoration: new InputDecoration.collapsed(
-                                      hintText: "이름"),
+                                      hintText: " "),
                                 ),
                               ),
                               Container(
@@ -293,18 +307,29 @@ class _Page1State extends State<Page1> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 30),
+                      Container(
+                        width: 400,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "이메일을 입력하세요",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 12),
+                        ),
+                      ),
+                      SizedBox(height: 2),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(0),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(color: Colors.grey, spreadRadius: 1),
                           ],
                         ),
                         height: 30,
-                        width: 220,
+                        width: 400,
                         child: Center(
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -312,13 +337,13 @@ class _Page1State extends State<Page1> {
                                 Container(
                                   alignment: Alignment.center,
                                   height: 20,
-                                  width: 170,
+                                  width: 350,
                                   child: TextField(
                                     autofocus: false,
                                     onChanged: _validate,
                                     controller: _emailController,
                                     decoration: new InputDecoration.collapsed(
-                                        hintText: "이메일"),
+                                        hintText: " "),
                                   ),
                                 ),
                                 Container(
@@ -332,18 +357,29 @@ class _Page1State extends State<Page1> {
                               ]),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 30),
+                      Container(
+                        width: 400,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "지금 즐기는 취미를 입력하세요",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 12),
+                        ),
+                      ),
+                      SizedBox(height: 2),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(0),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(color: Colors.grey, spreadRadius: 1),
                           ],
                         ),
                         height: 30,
-                        width: 220,
+                        width: 400,
                         child: Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -351,13 +387,13 @@ class _Page1State extends State<Page1> {
                               Container(
                                 alignment: Alignment.center,
                                 height: 20,
-                                width: 170,
+                                width: 350,
                                 child: TextField(
                                   autofocus: false,
                                   onChanged: _validate,
                                   controller: _hobbyController,
                                   decoration: new InputDecoration.collapsed(
-                                      hintText: "취미"),
+                                      hintText: " "),
                                 ),
                               ),
                               Container(
@@ -371,31 +407,23 @@ class _Page1State extends State<Page1> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15),
-                      Container(
-                          height: 50,
-                          child: Text("앱 신청은 이메일 수신에 \n동의 함을 뜻합니다.")),
-                      SizedBox(height: 15),
+                      SizedBox(height: 60),
                       Container(
                         alignment: Alignment.center,
-                        width: 286,
-                        height: 80,
+                        width: 250,
+                        height: 50,
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(5.0),
                           ),
                           color: Color(0xFF533AFF),
                           height: 60,
                           minWidth: 150,
                           disabledColor: Colors.grey,
                           onPressed: _isButtonEnabled ? _submit : null,
-                          child: Text(
-                            "신청",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
+                          child: Image.network(
+                              "/assets/assets/desc/apply_button.svg",
+                              width: 100),
                         ),
                       ),
                     ],
@@ -428,7 +456,7 @@ class _Page1State extends State<Page1> {
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: AlertDialog(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                borderRadius: BorderRadius.all(Radius.circular(0.0))),
             content: Container(
               width: 350.0,
               height: 200.0,

@@ -143,6 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+
   TextEditingController _emailController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _hobbyController = TextEditingController();
@@ -167,36 +168,49 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           }
 
+          var width = MediaQuery.of(context).size.width;
+          var height = MediaQuery.of(context).size.height;
           return BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: AlertDialog(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                  borderRadius: BorderRadius.all(Radius.circular(0.0))),
               content: Container(
-                width: 350.0,
-                height: 500.0,
+                color: Color(0xFFFCFCFF),
+                width: width * 0.8,
+                height: height,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 15),
-                      Text(
-                        "Palette 신청하기",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                      Image.network("/assets/assets/images/logo.png",
+                          width: width / 2),
+                      SizedBox(height: 30),
+                      Image.network("/assets/assets/desc/apply.svg",
+                          width: width / 2),
+                      SizedBox(height: 60),
+                      Container(
+                        width: 400,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "이름을 입력하세요",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 12),
+                        ),
                       ),
-                      SizedBox(height: 35),
+                      SizedBox(height: 2),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(0),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(color: Colors.grey, spreadRadius: 1),
                           ],
                         ),
                         height: 30,
-                        width: 220,
+                        width: 400,
                         child: Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,13 +218,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               Container(
                                 alignment: Alignment.center,
                                 height: 20,
-                                width: 170,
+                                width: 350,
                                 child: TextField(
                                   autofocus: false,
                                   onChanged: _validate,
                                   controller: _nameController,
                                   decoration: new InputDecoration.collapsed(
-                                      hintText: "이름"),
+                                      hintText: " "),
                                 ),
                               ),
                               Container(
@@ -224,18 +238,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 30),
+                      Container(
+                        width: 400,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "이메일을 입력하세요",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 12),
+                        ),
+                      ),
+                      SizedBox(height: 2),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(0),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(color: Colors.grey, spreadRadius: 1),
                           ],
                         ),
                         height: 30,
-                        width: 220,
+                        width: 400,
                         child: Center(
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -243,13 +268,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Container(
                                   alignment: Alignment.center,
                                   height: 20,
-                                  width: 170,
+                                  width: 350,
                                   child: TextField(
                                     autofocus: false,
                                     onChanged: _validate,
                                     controller: _emailController,
                                     decoration: new InputDecoration.collapsed(
-                                        hintText: "이메일"),
+                                        hintText: " "),
                                   ),
                                 ),
                                 Container(
@@ -263,18 +288,29 @@ class _MyHomePageState extends State<MyHomePage> {
                               ]),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 30),
+                      Container(
+                        width: 400,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "지금 즐기는 취미를 입력하세요",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 12),
+                        ),
+                      ),
+                      SizedBox(height: 2),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(0),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(color: Colors.grey, spreadRadius: 1),
                           ],
                         ),
                         height: 30,
-                        width: 220,
+                        width: 400,
                         child: Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -282,13 +318,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               Container(
                                 alignment: Alignment.center,
                                 height: 20,
-                                width: 170,
+                                width: 350,
                                 child: TextField(
                                   autofocus: false,
                                   onChanged: _validate,
                                   controller: _hobbyController,
                                   decoration: new InputDecoration.collapsed(
-                                      hintText: "취미"),
+                                      hintText: " "),
                                 ),
                               ),
                               Container(
@@ -302,31 +338,23 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15),
-                      Container(
-                          height: 50,
-                          child: Text("앱 신청은 이메일 수신에 \n동의 함을 뜻합니다.")),
-                      SizedBox(height: 15),
+                      SizedBox(height: 60),
                       Container(
                         alignment: Alignment.center,
-                        width: 286,
-                        height: 80,
+                        width: 250,
+                        height: 50,
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(5.0),
                           ),
                           color: Color(0xFF533AFF),
                           height: 60,
                           minWidth: 150,
                           disabledColor: Colors.grey,
                           onPressed: _isButtonEnabled ? _submit : null,
-                          child: Text(
-                            "신청",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
+                          child: Image.network(
+                              "/assets/assets/desc/apply_button.svg",
+                              width: 100),
                         ),
                       ),
                     ],
@@ -359,7 +387,7 @@ class _MyHomePageState extends State<MyHomePage> {
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: AlertDialog(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                borderRadius: BorderRadius.all(Radius.circular(0.0))),
             content: Container(
               width: 350.0,
               height: 200.0,
